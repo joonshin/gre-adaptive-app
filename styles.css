@@ -1,0 +1,282 @@
+/* Main styling for GRE Adaptive Prep App */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.difficulty-indicator {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.diff-easy { 
+    background: #d4edda; 
+    color: #155724; 
+}
+
+.diff-medium { 
+    background: #fff3cd; 
+    color: #856404; 
+}
+
+.diff-hard { 
+    background: #f8d7da; 
+    color: #721c24; 
+}
+
+.question-container {
+    margin: 30px 0;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.category-badge {
+    background: #3498db;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.question-text {
+    font-size: 18px;
+    margin-bottom: 25px;
+    line-height: 1.8;
+    color: #2c3e50;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    padding: 18px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.option-btn:hover:not(:disabled) {
+    border-color: #667eea;
+    background: #f8f9ff;
+    transform: translateX(5px);
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.option-btn.selected-correct {
+    border-color: #27ae60;
+    background: #d4edda;
+}
+
+.option-btn.selected-incorrect {
+    border-color: #e74c3c;
+    background: #f8d7da;
+}
+
+.feedback {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    border-color: #27ae60;
+    color: #155724;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    border-color: #e74c3c;
+    color: #721c24;
+}
+
+.explanation {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.next-btn {
+    margin-top: 25px;
+    padding: 14px 35px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.results {
+    text-align: center;
+}
+
+.score-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.analysis {
+    text-align: left;
+    margin-top: 40px;
+}
+
+.skill-item {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background: #f8f9fa;
+    border-left: 4px solid;
+}
+
+.skill-strong {
+    border-color: #27ae60;
+}
+
+.skill-weak {
+    border-color: #e74c3c;
+}
+
+.skill-neutral {
+    border-color: #f39c12;
+}
+
+.skill-name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.skill-stats {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.skill-tags {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-tag {
+    background: #e0e0e0;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #555;
+}
+
+.hidden {
+    display: none;
+}
+
+.insights {
+    background: #e8f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    border-left: 4px solid #3498db;
+}
+
+.insights h4 {
+    margin-top: 0;
+    color: #2980b9;
+}
+
+.insights ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.insights li {
+    margin: 8px 0;
+    line-height: 1.6;
+}

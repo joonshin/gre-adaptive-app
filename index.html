@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRE Adaptive Prep</title>
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 GRE Adaptive Prep</h1>
+        <div class="subtitle">
+            Personalized learning for military members transitioning to graduate school
+            <div style="margin-top: 10px;">
+                <strong>Welcome, <span id="username-display"></span>!</strong> | 
+                <a href="dashboard.html" style="color: #667eea; text-decoration: none; margin-right: 10px;">📊 Dashboard</a> |
+                <a href="#" onclick="logout()" style="color: #667eea; text-decoration: none;">Logout</a>
+            </div>
+        </div>
+        
+        <div id="quiz-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+                Question <span id="current-question">1</span> of <span id="total-questions">15</span>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-header">
+                    <span class="category-badge" id="category-badge"></span>
+                    <span class="difficulty-indicator" id="difficulty-indicator"></span>
+                </div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options" id="options"></div>
+            </div>
+            
+            <div id="feedback" class="feedback hidden"></div>
+            <button id="next-btn" class="next-btn hidden">Next Question →</button>
+        </div>
+        
+        <div id="results-section" class="results hidden">
+            <h2>Assessment Complete! 🎉</h2>
+            <div class="score-circle" id="final-score"></div>
+            <div class="analysis" id="analysis"></div>
+            <div class="insights" id="insights"></div>
+            <button class="next-btn" onclick="location.reload()">Start New Assessment</button>
+            <button class="next-btn" onclick="window.location.href='dashboard.html'" style="background: #3498db; margin-left: 10px;">View Dashboard 📊</button>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript files -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
