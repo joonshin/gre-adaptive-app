@@ -3,7 +3,7 @@ load_dotenv()
 
 # FLASK SERVER - HANDLES API REQUESTS
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import hashlib
 import os
@@ -222,6 +222,29 @@ def save_session():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# ===== QUESTIONS ROUTES =====
+
+@app.route('/api/questions/<topic>', methods=['GET'])
+def get_questions_by_topic(topic):
+    """Get all questions for a specific topic"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute(
+            'SELECT * FROM questions WHERE topic = %s ORDER BY RANDOM()',
+            (topic,)
+        )
+        questions = cur.fetchall()
+        
+        cur.close()
+        conn.close()
+        
+        return jsonify({'questions': questions}), 200
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # ===== HEALTH CHECK =====
 
 @app.route('/api/health', methods=['GET'])
@@ -230,6 +253,17 @@ def health_check():
     return jsonify({'status': 'Server is running!'}), 200
 
 # ===== RUN SERVER =====
+# ===== SERVE FRONTEND FILES =====
+
+@app.route('/')
+def serve_dashboard():
+    """Serve dashboard as home page"""
+    return send_from_directory('..', 'dashboard.html')
+
+@app.route('/<path:filename>')
+def serve_file(filename):
+    """Serve any file from the root directory"""
+    return send_from_directory('..', filename)
 
 if __name__ == '__main__':
     # Initialize database tables on first run

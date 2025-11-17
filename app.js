@@ -11,6 +11,10 @@ if (!userId) {
     window.location.href = 'auth.html';
 }
 
+// Check if a topic was selected
+const selectedTopic = localStorage.getItem('selected_topic');
+let questionsLoaded = false;
+
 // APPLICATION LOGIC FOR GRE ADAPTIVE PREP
 
 // LEARNING PROFILE - Tracks detailed performance across all skills
@@ -41,7 +45,7 @@ let questionNumber = 0;
 let correctAnswers = 0;
 let askedQuestions = [];
 let currentQuestion = null;
-const totalQuestions = 15;
+let totalQuestions = 15;
 
 // ADAPTIVE DIFFICULTY ALGORITHM
 let consecutiveCorrect = 0;
@@ -79,6 +83,36 @@ function adjustDifficulty(wasCorrect) {
     }
 }
 
+async function loadQuestionsFromAPI(topic) {
+    try {
+        const response = await fetch(`${API_URL}/questions/${topic}`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to load questions');
+        }
+        
+        const data = await response.json();
+        
+        // Convert database questions to the format the quiz expects
+        const convertedQuestions = data.questions.map(q => ({
+            question: q.question_text,
+            options: [q.option_a, q.option_b, q.option_c, q.option_d, q.option_e].filter(opt => opt !== null),
+            correct: q.correct_answer,
+            category: "Quantitative",
+            primarySkill: q.topic,
+            subSkills: [q.topic],
+            difficulty: q.difficulty,
+            explanation: q.explanation
+        }));
+        
+        return convertedQuestions;
+        
+    } catch (error) {
+        console.error('Error loading questions:', error);
+        return [];
+    }
+}
+
 function getRandomQuestion(difficulty) {
     const questions = questionBank[difficulty];
     const availableQuestions = questions.filter(q => !askedQuestions.includes(q));
@@ -100,6 +134,32 @@ function updateProgressBar() {
 }
 
 function displayQuestion() {
+    // Hide quiz while loading questions from API
+    if (selectedTopic && !questionsLoaded) {
+        document.getElementById('quiz-section').style.display = 'none';
+    }
+
+    // Load questions from API if topic was selected and not loaded yet
+    if (selectedTopic && !questionsLoaded) {
+        loadQuestionsFromAPI(selectedTopic).then(questions => {
+            if (questions.length > 0) {
+                questionBank.easy = questions.filter(q => q.difficulty === 'easy');
+                questionBank.medium = questions.filter(q => q.difficulty === 'medium');
+                questionBank.hard = questions.filter(q => q.difficulty === 'hard');
+                questionsLoaded = true;
+                // Update total questions to match loaded questions
+                const loadedCount = questionBank.easy.length + questionBank.medium.length + questionBank.hard.length;
+                totalQuestions = loadedCount > 0 ? loadedCount : 15;
+                document.getElementById('quiz-section').style.display = 'block';
+                localStorage.removeItem('selected_topic'); // Clear the topic after loading
+                displayQuestion(); // Call again to actually display
+            } else {
+                alert('No questions found for this topic yet!');
+                window.location.href = 'dashboard.html';
+            }
+        });
+        return; // Exit and wait for questions to load
+    }
     questionNumber++;
     
     if (questionNumber > totalQuestions) {

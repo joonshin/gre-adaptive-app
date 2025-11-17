@@ -78,6 +78,24 @@ def init_db():
             answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
+
+    # Questions table - stores all quiz questions
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS questions (
+            id SERIAL PRIMARY KEY,
+            question_text TEXT NOT NULL,
+            option_a TEXT NOT NULL,
+            option_b TEXT NOT NULL,
+            option_c TEXT NOT NULL,
+            option_d TEXT NOT NULL,
+            option_e TEXT,
+            correct_answer INTEGER NOT NULL,
+            topic VARCHAR(100) NOT NULL,
+            difficulty VARCHAR(20) NOT NULL,
+            explanation TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
     
     conn.commit()
     cur.close()

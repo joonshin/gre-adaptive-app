@@ -282,6 +282,55 @@
             margin: 20px 0;
         }
 
+        .topics-menu {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .topics-menu h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .topic-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .topic-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .topic-icon {
+            font-size: 32px;
+        }
+
+        .topic-name {
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
@@ -307,6 +356,45 @@
             <div class="nav-buttons">
                 <a href="index.html" class="nav-btn primary">📝 Start New Quiz</a>
                 <a href="#" onclick="logout()" class="nav-btn secondary">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- Math Topics Menu -->
+        <div class="topics-menu">
+            <h2>📐 Practice by Math Topic</h2>
+            <div class="topics-grid">
+                <button class="topic-btn" onclick="startTopicQuiz('number_theory')">
+                    <span class="topic-icon">🔢</span>
+                    <span class="topic-name">Number Theory</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('percents')">
+                    <span class="topic-icon">%</span>
+                    <span class="topic-name">Percents</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('absolute_value')">
+                    <span class="topic-icon">|x|</span>
+                    <span class="topic-name">Absolute Value</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('coordinate_geometry')">
+                    <span class="topic-icon">📊</span>
+                    <span class="topic-name">Coordinate Geometry</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('standard_deviation')">
+                    <span class="topic-icon">σ</span>
+                    <span class="topic-name">Standard Deviation</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('probability')">
+                    <span class="topic-icon">🎲</span>
+                    <span class="topic-name">Probability</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('combinatorics')">
+                    <span class="topic-icon">🔀</span>
+                    <span class="topic-name">Combinatorics</span>
+                </button>
+                <button class="topic-btn" onclick="startTopicQuiz('sequences')">
+                    <span class="topic-icon">→</span>
+                    <span class="topic-name">Sequences & Progressions</span>
+                </button>
             </div>
         </div>
 
@@ -754,6 +842,13 @@
             localStorage.removeItem('user_id');
             localStorage.removeItem('username');
             window.location.href = 'auth.html';
+        }
+
+        function startTopicQuiz(topic) {
+            // Save selected topic to localStorage
+            localStorage.setItem('selected_topic', topic);
+            // Redirect to quiz page
+            window.location.href = 'index.html';
         }
 
         // Load dashboard on page load
